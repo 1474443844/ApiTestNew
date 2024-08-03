@@ -132,7 +132,7 @@ class MainActivity : ComponentActivity() {
                             if (!response.isSuccessful) throw IOException("Unexpected code $response")
                             // 下载并保存文件
                             response.body?.let { body ->
-                                val contentLength = body.contentLength()
+                                val contentLength = body.contentLength() - json.skip
                                 body.source().let { source ->
                                     file.outputStream().use { output ->
                                         source.skip(json.skip.toLong())
@@ -145,8 +145,10 @@ class MainActivity : ComponentActivity() {
                                         ) {
                                             sink.write(buffer, 0, bytesRead)
                                             totalBytesRead += bytesRead
-                                            progress = (totalBytesRead / contentLength).toFloat()
+                                            progress = totalBytesRead.toFloat() / contentLength
+                                            println("进度: $progress, 总读取字节数: $totalBytesRead")
                                         }
+                                        sink.flush()
                                     }
                                 }
                             }
