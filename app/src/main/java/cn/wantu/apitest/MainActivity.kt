@@ -94,10 +94,12 @@ class MainActivity : ComponentActivity() {
             onConfirm = {
                 showInstallDialog = false
                 installApk()
-            }) {
-            showInstallDialog = false
-            gotoTestPage()
-        }
+            },
+            onDismiss = {
+                showInstallDialog = false
+                gotoTestPage()
+            }
+        )
     }
 
     @Composable
@@ -158,14 +160,16 @@ class MainActivity : ComponentActivity() {
                             installContent = "File downloaded to: ${file.absolutePath}"
                         }
                 }
-            }){
-            // 不更新
-            gotoTestPage()
-        }
+            },
+            onDismiss = {
+                // 不更新
+                gotoTestPage()
+            }
+        )
     }
 
     private fun gotoTestPage() {
-        TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
 
     private fun newInstallIntent() = Intent(Intent.ACTION_VIEW).apply {

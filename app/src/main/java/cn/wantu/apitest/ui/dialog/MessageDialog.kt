@@ -28,10 +28,11 @@ fun MessageDialog(
     confirmText: String = "确认",
     dismissText: String = "取消",
     onConfirm: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    dismissRequest: () -> Unit = {}
 ) {
     if (showDialog) {
-        Dialog(onDismissRequest = onDismiss) {
+        Dialog(onDismissRequest = dismissRequest) {
             Surface(
                 shape = MaterialTheme.shapes.medium,
                 shadowElevation = 8.dp
@@ -71,7 +72,7 @@ fun MessageDialog(
 @Preview
 @Composable
 private fun MessageDialogPreview() {
-    MessageDialog(showDialog = true, title = "你好", message = "那晒商家欧酷", onConfirm = { /*TODO*/ }) {
+    MessageDialog(showDialog = true, title = "你好", message = "我是弹窗测试", onConfirm = { /*TODO*/ }, onDismiss = { /*TODO*/ }) {
 
     }
 }
