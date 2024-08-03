@@ -14,6 +14,7 @@ import androidx.compose.ui.window.Dialog
 @Composable
 fun DownloadProgressDialog(
     showDialog: Boolean,
+    title: String = "下载中...",
     progress: Float,
     onCancel: () -> Unit = {}
 ) {
@@ -29,7 +30,7 @@ fun DownloadProgressDialog(
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "下载中...", style = MaterialTheme.typography.titleSmall)
+                    Text(text = title, style = MaterialTheme.typography.titleSmall)
                     Spacer(modifier = Modifier.height(16.dp))
                     LinearProgressIndicator(
                         progress = { progress },

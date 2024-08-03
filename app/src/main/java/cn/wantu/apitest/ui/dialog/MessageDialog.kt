@@ -15,6 +15,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -37,18 +38,17 @@ fun MessageDialog(
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
                         text = title,
-                        fontSize = 20.sp,
+                        fontSize = 18.sp,
                         style = MaterialTheme.typography.titleSmall
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = message,
-                        fontSize = 16.sp,
-                        style = MaterialTheme.typography.bodyLarge
+                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.bodyMedium
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Row(
@@ -66,5 +66,12 @@ fun MessageDialog(
                 }
             }
         }
+    }
+}
+@Preview
+@Composable
+private fun MessageDialogPreview() {
+    MessageDialog(showDialog = true, title = "你好", message = "那晒商家欧酷", onConfirm = { /*TODO*/ }) {
+
     }
 }
