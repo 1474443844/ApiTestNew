@@ -12,6 +12,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 
 object HttpUtils {
     private var client: OkHttpClient = ApiApp.okHttpClient()
+
     fun get(url: String) = GetBuilder(url)
 
     fun post(url: String) = PostBuilder(url)

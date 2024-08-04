@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.content.FileProvider
 import cn.wantu.apitest.data.ApiTestConfig
+import cn.wantu.apitest.ui.activity.ApiTest
 import cn.wantu.apitest.ui.dialog.DownloadProgressDialog
 import cn.wantu.apitest.ui.dialog.MessageDialog
 import cn.wantu.apitest.utils.HttpUtils
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
 
     private var showProgressDialog by mutableStateOf(false)
     private var downloadTitle by mutableStateOf("")
-    private var progress by  mutableFloatStateOf(0f)
+    private var progress by mutableFloatStateOf(0f)
 
     private var showInstallDialog by mutableStateOf(false)
     private var installContent by mutableStateOf("")
@@ -66,8 +67,10 @@ class MainActivity : ComponentActivity() {
             // 获取最新版本
             json = Json.decodeFromString<ApiTestConfig>(
                 HttpUtils.get("https://docs.wty5.cn/App/ApiTestConfig.json")
-                    .excuteString()!!)
+                    .excuteString()!!
+            )
             val pi = packageManager.getPackageInfo(packageName, 0)
+            @Suppress("DEPRECATION")
             val currentVersion = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 pi.longVersionCode
             } else {
@@ -78,7 +81,7 @@ class MainActivity : ComponentActivity() {
                 showUpdateDialog = true // 显示更新对话框
                 latestVersion = json.version // 最新版本
                 updateContent = json.content // 更新内容
-            }else{
+            } else {
                 gotoTestPage()
             }
         }
@@ -143,7 +146,7 @@ class MainActivity : ComponentActivity() {
                                         var totalBytesRead: Long = 0
                                         var bytesRead: Int
                                         while (source.read(buffer)
-                                            .also { bytesRead = it } != -1
+                                                .also { bytesRead = it } != -1
                                         ) {
                                             sink.write(buffer, 0, bytesRead)
                                             totalBytesRead += bytesRead
@@ -169,7 +172,8 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun gotoTestPage() {
-        // TODO("Not yet implemented")
+        startActivity(Intent(this, ApiTest::class.java))
+        finish()
     }
 
     private fun newInstallIntent() = Intent(Intent.ACTION_VIEW).apply {
@@ -190,6 +194,7 @@ class MainActivity : ComponentActivity() {
                 val intent1 = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
                 intent1.data = Uri.parse("package:${packageName}")
                 getUnknownAppSourcesPermission.launch(intent1)
+                return
             }
         }
         startActivity(newInstallIntent())

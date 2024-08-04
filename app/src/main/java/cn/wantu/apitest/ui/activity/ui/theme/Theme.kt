@@ -1,5 +1,6 @@
-package cn.wantu.apitest.ui.theme
+package cn.wantu.apitest.ui.activity.ui.theme
 
+import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
